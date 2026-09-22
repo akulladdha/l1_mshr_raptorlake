@@ -100,6 +100,15 @@ itself a finding and should be reported, not tuned away.
 - Sustained P-core clock under load on this mobile part.
 - Real idle DRAM latency and achievable random-access bandwidth.
 
+### Validation status
+
+**One datapoint so far.** Camel h0 baseline under this config reaches an L1 MLP
+of **15.86**, pinned against the 16-MSHR ceiling. The real machine measures
+demand misses in flight plateauing at **13.8–13.9**. The simulator runs ~2
+entries higher because nothing else competes for the fill buffer — which is
+precisely the gap the root README flags as its open question. Directionally
+right and the correct order of magnitude, but a single point.
+
 ### Planned validation
 `mshr_count/mlp_chase.c` is ground truth we already hold for this machine: an
 N = 1…128 sweep with real ns/load. The same sweep run under this gem5 config

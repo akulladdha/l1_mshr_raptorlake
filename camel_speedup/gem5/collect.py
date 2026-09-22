@@ -24,6 +24,11 @@ WORKLOAD_RE = re.compile(
     r"hash_n=(\d+)\s+swpf=(\d+)\s+pfdist=(\d+)\s+log2_m=(\d+)\s+"
     r"accesses=(\d+)\s+([\d.]+)\s+ns/access")
 
+# camel_se.py announces which machine model it instantiated. config.ini only
+# records the generic C++ type ("DRAMInterface"), so it cannot tell skylake and
+# raptorlake apart -- this can.
+MACHINE_RE = re.compile(r"\[camel_se\]\s+machine=(\S+)")
+
 
 # --------------------------------------------------------------- stats.txt
 def read_roi_stats(path):
@@ -109,10 +114,14 @@ def read_workload(rundir):
         return {}
     with open(log, errors="replace") as f:
         txt = f.read()
+    out = {}
+    mm = MACHINE_RE.search(txt)
+    if mm:
+        out["machine"] = mm.group(1)
     m = WORKLOAD_RE.search(txt)
     if not m:
-        return {}
-    return dict(
+        return out
+    out.update(
         hash_n=int(m.group(1)),
         swpf=int(m.group(2)),
         pfdist=int(m.group(3)),
@@ -120,6 +129,7 @@ def read_workload(rundir):
         accesses=int(m.group(5)),
         host_ns_per_access=float(m.group(6)),
     )
+    return out
 
 
 # ------------------------------------------------------------------- row
@@ -146,6 +156,7 @@ def build_row(rundir, tag):
         return 0.0
 
     insts = val("system.cpu.commitStats0.numInsts", "system.cpu.committedInsts")
+    uops = val("system.cpu.commitStats0.numOps") or insts
     l1d_mshr_miss = val("system.cpu.dcache.overallMshrMisses::total")
     l2_mshr_miss = val("system.l2.overallMshrMisses::total")
     l3_mshr_miss = val("system.l3.overallMshrMisses::total")
@@ -173,13 +184,16 @@ def build_row(rundir, tag):
     dram_bytes = l3_mshr_miss * 64.0
     dram_gbs = (dram_bytes / sim_seconds / 1e9) if sim_seconds else 0.0
 
-    # Memory intensity as Kwon defines it: DRAM-reaching loads per committed
-    # micro-op. L3 MSHR misses stand in for "loads that reach DRAM".
-    mem_intensity = (l3_mshr_miss / insts) if insts else 0.0
+    # Memory intensity as Kwon defines it (§3.3): DRAM-reaching loads per
+    # committed MICRO-op, not per instruction. On x86 the two differ by ~1.8x
+    # here, which shifts the whole hN ladder and breaks comparison with the
+    # paper. L3 MSHR misses stand in for "loads that reach DRAM".
+    mem_intensity = (l3_mshr_miss / uops) if uops else 0.0
 
     return dict(
         tag=tag,
         run=os.path.basename(rundir.rstrip("/")),
+        machine=wl.get("machine", "unknown"),
         machine_l1d_mshrs=cfg["l1d_mshrs"],
         l2_mshrs=cfg["l2_mshrs"],
         l3_mshrs=cfg["l3_mshrs"],
@@ -194,7 +208,9 @@ def build_row(rundir, tag):
         accesses=accesses,
         cycles=cycles,
         insts=insts,
+        uops=uops,
         ipc=insts / cycles,
+        upc=uops / cycles,
         cyc_per_access=cycles / accesses if accesses else 0.0,
         mlp_l1=mlp_l1, mlp_l2=mlp_l2, mlp_l3=mlp_l3,
         mem_intensity=mem_intensity,

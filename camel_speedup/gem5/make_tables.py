@@ -69,14 +69,41 @@ def main():
                     help="the idealized (unbottlenecked) L1D MSHR count")
     ap.add_argument("--tag", default=None,
                     help="only use runs with this tag")
+    ap.add_argument("--dist-limit", type=int, default=None,
+                    help="ignore prefetch distances above this. Kwon reports "
+                         "16 or 32 as optimal for T0 (S4.4), so --dist-limit 32 "
+                         "reproduces his search space; an unlimited sweep finds "
+                         "more headroom and is not the same experiment")
+    ap.add_argument("--suffix", default="",
+                    help="appended to output filenames")
+    ap.add_argument("--machine", default=None,
+                    help="only use runs from this machine model "
+                         "(skylake, raptorlake) -- required once more than "
+                         "one machine is present, or the tables will mix them")
     args = ap.parse_args()
 
     rows = load(args.runs)
     if args.tag:
         rows = [r for r in rows if r["tag"] == args.tag]
+    if args.machine:
+        rows = [r for r in rows if r.get("machine") == args.machine]
     if not rows:
         raise SystemExit("no rows selected")
-    tag = args.tag or "all"
+
+    machines = {r.get("machine", "unknown") for r in rows}
+    if len(machines) > 1:
+        raise SystemExit(
+            f"rows span multiple machine models {sorted(machines)}; pass "
+            f"--machine to pick one -- mixing them would make the speedup "
+            f"columns meaningless")
+
+    if args.dist_limit is not None:
+        rows = [r for r in rows
+                if not r["swpf"] or (r["pfdist"] or 0) <= args.dist_limit]
+        if not rows:
+            raise SystemExit("dist-limit excluded every run")
+
+    tag = (args.machine or args.tag or "all") + args.suffix
 
     # Only the default (unmodified ROB/LQ) runs belong in the figures; the
     # limiter-hunting runs used inflated structures and would distort them.

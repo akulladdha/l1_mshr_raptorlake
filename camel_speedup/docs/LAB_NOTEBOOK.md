@@ -158,6 +158,125 @@ incomplete.
 
 ---
 
+## Phase 3 — full Skylake sweep (Fig 3.10 left panel)
+
+Matrix: h0–h5 × {base@10 MSHRs, T0@10, T0@512} × prefetch distance
+{16, 32, 64, 128, 256} = **66 runs, 12 parallel, 0 failures**, ~55 min wall.
+`~/camel_runs/skylake_fig310`, tag `skylake_fig310` in `results/gem5_runs.csv`.
+
+### Result — unlimited distance search (`fig310_skylake.csv`)
+
+| hN | mem intensity | base cyc/acc | T0 % | T0 MLP | T0+512 % | T0+512 MLP | headroom % |
+|---|---|---|---|---|---|---|---|
+| h0 | 0.1065 | 42.34 | **100.1** | 9.94 | 255.1 | 113.1 | 155.0 |
+| h1 | 0.0399 | 74.77 | 176.0 | 9.89 | 443.4 | 81.8 | 267.4 |
+| h2 | 0.0291 | 107.32 | 251.8 | 9.84 | 495.2 | 26.0 | 243.4 |
+| h3 | 0.0137 | 153.79 | 315.6 | 8.33 | 346.4 | 9.73 | 30.8 |
+| h4 | 0.0107 | 211.81 | 333.4 | 6.17 | 345.4 | 6.66 | 12.0 |
+| h5 | 0.0087 | 228.26 | 283.3 | 4.78 | 291.5 | 5.04 | 8.2 |
+
+Both of Kwon's qualitative claims reproduce cleanly:
+
+1. **At high memory intensity, prefetch alone does nothing.** h0 T0 = 100.1 % —
+   literally zero benefit — because MLP is pinned at 9.94 against the 10-MSHR
+   ceiling. All of h0's available gain sits behind the MSHR wall.
+2. **Headroom collapses as memory intensity falls**: 155 % → 267 % → 243 % →
+   30.8 % → 12.0 % → 8.2 %. By h3 the MSHR limit no longer binds (MLP 8.33 < 10)
+   and extra MSHRs buy almost nothing — Kwon: *"Increasing MSHR entries has
+   little benefit when the ROB limit dominates, as in the case of h3."*
+
+### Result — Kwon's distance search space (`fig310_skylake_kwondist.csv`)
+
+Kwon reports optimal T0 distances of **16 or 32** (§4.4). Restricting to that
+range makes the comparison like-for-like:
+
+| hN | T0 % (ours) | T0 % (Kwon, read off Fig 3.10) | T0+512 % (ours) | T0+512 % (Kwon) |
+|---|---|---|---|---|
+| h0 | **100.1** | ~100 | **211.7** | ~218 |
+| h1 | **176.0** | ~180 | **344.2** | ~335 |
+| h2 | 251.7 | ~265 | 445.9 | ~310 |
+| h3 | 315.6 | ~280 | 340.1 | ~285 |
+
+h0 and h1 land within a few percent on **both** bars. h2/h3 track in shape but
+our idealized bars run high.
+
+**Likely cause of the h2/h3 over-estimate:** we model Skylake with **10** L1
+MSHRs, while Kwon's simulated figures are run on his default gem5-Zen2 with
+**16** (§4.4). A 10-MSHR baseline hits the wall sooner, so lifting it yields
+more. This is a config choice, not an error, but it means our left panel is
+*not* numerically his. Worth a Zen2-style 16-MSHR variant later.
+
+### Secondary observations
+
+- **DRAM bandwidth saturates near 14.8 GB/s**, ~38 % of the 38.4 GB/s peak of
+  2ch DDR4-2400. Expected for a random 64 B access stream (essentially zero
+  row-buffer hits). Consequence: past MLP ≈ 70 extra concurrency buys almost
+  nothing — h0 d128→d256 grows MLP 68.8 → 113 (+64 %) for +3 % bandwidth and
+  +3 % performance. We are in the queueing regime, where added MLP inflates
+  latency instead of throughput.
+- **Distance 256 causes L1 thrashing.** Demand miss rate jumps at d256 —
+  h3: 0.0012 (d64) → 0.204 (d256); h4: 0.0011 → 0.208 — because 256 in-flight
+  prefetched lines do not fit in a 32 kB / 512-line L1 alongside the `idx[]`
+  stream. The best-distance picker correctly avoids d256 for h3–h5. For h0/h1 it
+  still picks d256, where the net is slightly faster despite 15 % of demand
+  loads missing; that is a real but marginal win and is why the distance-limited
+  table exists.
+- **Best distance falls as memory intensity falls**: h0/h1 want 256, h2 128,
+  h3/h4 64, h5 32. Longer loops need fewer iterations of lead time.
+
+---
+
+## Phase 4 — Raptor-Cove-like sweep (the machine we actually have)
+
+Same matrix, `--machine raptorlake`, stock L1D MSHRs = **16** (the architectural
+LFB count measured in `mshr_count/`): 66 runs, 12 parallel, **0 failures**,
+~50 min. `~/camel_runs/raptorlake_fig310`.
+
+Config smoke-tested first and parameters verified out of `config.ini` before the
+sweep: ROB 512, LQ/SQ 192/114, clock 204 ticks (4.9 GHz), L1D 48 kB/12-way/16
+MSHRs/5 cyc, L2 1280 kB/16 cyc, L3 3 MB/50 cyc, stride prefetchers on.
+
+### Skylake vs Raptor Lake, side by side (unlimited distance)
+
+| hN | intensity | SKY baseMLP | SKY T0 % | SKY ideal % | SKY head % | RPL baseMLP | RPL T0 % | RPL ideal % | RPL head % |
+|---|---|---|---|---|---|---|---|---|---|
+| h0 | 0.1065 | 9.9 | 100.1 | 255.1 | 155.0 | **15.9** | **100.5** | 183.2 | 82.7 |
+| h1 | 0.0399 | 5.2 | 176.0 | 443.4 | 267.4 | 5.0 | 250.9 | 463.1 | 212.2 |
+| h2 | 0.0290 | 3.5 | 251.8 | 495.2 | 243.4 | 3.4 | 352.7 | 560.0 | 207.3 |
+| h3 | 0.0137 | 2.4 | 315.6 | 346.4 | 30.8 | 2.3 | 368.1 | 393.4 | 25.3 |
+| h4 | 0.0106 | 1.7 | 333.4 | 345.4 | 12.0 | 1.7 | 374.7 | 389.2 | 14.5 |
+| h5 | 0.0087 | 1.6 | 283.3 | 291.5 | 8.2 | 1.6 | 320.5 | 327.9 | 7.4 |
+
+### What this says
+
+1. **The MSHR bottleneck survives the move to Raptor Lake.** h0 baseline MLP
+   pins at **15.86** against the 16-MSHR ceiling, and T0 prefetch delivers
+   **100.5 %** — i.e. nothing at all — despite a ROB more than twice Skylake's
+   (512 vs 224) and DDR5 instead of DDR4. Lifting the MSHR cap still yields
+   1.83×. The limiter is the fill buffer, not the out-of-order window. This
+   corroborates the repo's original headline ("bottleneck still exists") from the
+   hardware side, now with a mechanism attached.
+2. **More MSHRs shrink the headroom but do not remove it.** h0 headroom falls
+   155 % → 82.7 % going 10 → 16 MSHRs. h1/h2 still leave 207–212 % on the table.
+3. **This explains the Phase-3 h2/h3 over-estimate against Kwon.** The hypothesis
+   there was that our 10-MSHR Skylake exaggerated headroom relative to his
+   16-MSHR Zen2. Re-running at 16 MSHRs drops every headroom figure, in the
+   predicted direction and by a large margin — supporting that explanation.
+4. **Raptor Lake gets more out of prefetch wherever it is not MSHR-bound**: h1
+   250.9 % vs Skylake's 176.0 %, h2 352.7 % vs 251.8 %. The bigger ROB and faster
+   memory pay off — but only once MLP is below the MSHR ceiling.
+
+### First validation datapoint for the raptorlake config
+
+Simulated h0 baseline MLP = **15.86**; the real machine measures demand misses in
+flight plateauing at **13.8–13.9** (root README, VTune). The simulator reaches
+slightly higher because nothing else competes for the fill buffer, which is
+exactly the ~2-entry gap the root README flags as an open question. Directionally
+consistent, and the right order — but this is one point, not the promised
+`mlp_chase` N-sweep validation, which remains outstanding.
+
+---
+
 ## Problems encountered and resolutions
 
 | # | Problem | Resolution |
@@ -173,6 +292,9 @@ incomplete.
 | 9 | MLP figures came out ~2480 — nonsense against a 10-MSHR cap | gem5 reports MSHR latency in **ticks**, not cycles. Collector now divides by this run's own `simTicks/numCycles` rather than assuming a clock |
 | 10 | `grep -c prefetcht0` showed 132 hits in the *baseline* binary | Static libc contains prefetches. Disassemble `main` only: baseline 0, T0 exactly 1, inside the ROI loop |
 | 11 | Two parsers (`parse_stats.py`, ad-hoc greps) risked drifting | Deleted `parse_stats.py`; `collect.py` is the single source of truth and reads gem5's own `config.ini`, not directory names |
+| 12 | **Memory intensity was ~1.8× too high**, shifting our whole hN ladder off Kwon's x-axis and making h2 look like his h1 | Kwon defines intensity per committed **micro-op** (§3.3); we were dividing by *instructions*. gem5 reports both (`numOps` 9.0 M vs `numInsts` 5.0 M for h0). Switched to `numOps`: h0 0.192 → **0.107** vs Kwon's ~0.10, and the whole ladder now aligns with his Fig 3.9 x-axis |
+| 13 | `config.ini` records the DRAM type as the generic C++ class `DRAMInterface`, so skylake and raptorlake runs were indistinguishable in the CSV — they would have silently mixed once both existed | `collect.py` now takes the model name from the `[camel_se] machine=…` line the config prints, adding a `machine` column; `make_tables.py` refuses to emit a table spanning two machines unless `--machine` picks one |
+| 14 | Taking the best of distances up to 256 is **not** the experiment Kwon ran (he reports 16 or 32 as optimal), so our headroom bars were inflated relative to his | Added `--dist-limit` / `--suffix`; we now publish both `fig310_skylake.csv` (unlimited) and `fig310_skylake_kwondist.csv` (≤32). The paper comparison uses the latter |
 
 ---
 

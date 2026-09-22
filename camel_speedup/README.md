@@ -55,10 +55,17 @@ Speedups are normalized so baseline = 100 %, matching the dissertation's y-axis.
 
 ## Status
 
-- gem5 skylake config: **working**, h0 validated against the paper's h0 shape.
-- gem5 raptorlake config: **written, never run**.
-- Real-machine panel: **not started** — needs an elevated prompt (large pages +
-  VTune PMU access).
+- **gem5 skylake (Kwon Table 4.2): done.** 66 runs, 0 failures. With Kwon's own
+  prefetch-distance range, h0 = 100.1 % / 211.7 % against his ~100 % / ~218 %,
+  and h1 = 176.0 % / 344.2 % against his ~180 % / ~335 %.
+- **gem5 raptorlake: done.** 66 runs, 0 failures. Baseline MLP pins at 15.86
+  against the 16-MSHR ceiling and T0 prefetch delivers 100.5 % — nothing —
+  despite a 512-entry ROB. Lifting the cap gives 1.83×.
+- **Real-machine panel: not started** — needs an elevated prompt (large pages +
+  VTune PMU access), following the recipe in the root README.
+
+Headline so far: the L1 fill buffer, not the out-of-order window, is what caps
+MLP for high-memory-intensity code — and it still is on Raptor Lake.
 
 See `docs/LAB_NOTEBOOK.md` for the full record, including the gate experiment
 that disproved the assumption that gem5 needed a prefetch early-retire patch.
