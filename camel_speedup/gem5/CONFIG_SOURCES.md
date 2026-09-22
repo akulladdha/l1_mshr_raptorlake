@@ -54,12 +54,34 @@ Target part detected on this system: **Intel Core 7 240H**, 6 P + 4 E, 24 MB L3,
 | clock | 4.9 GHz | [D] | P-core max turbo for this SKU. **[E] risk:** sustained clock on a 2.5 GHz-base mobile part will be lower; see Open Issue below |
 | L1D | 48 kB, 12-way | [D] | Raptor Cove L1D |
 | L1D latency | 5 cyc | [P] | standard measured Golden/Raptor Cove load-to-use |
-| **L1D MSHRs** | **16** | **[M]** | `mshr_count/sweep_plugged.txt` — knee at N ≈ 14–16 |
+| **L1D MSHRs** | **16** | **[M]** + [E] | See note below — measured demand occupancy is ~13.9, not 16 |
 | L2 | 1280 kB, 10-way, 16 cyc | [D]/[P] | WMI reports 7680 kB total L2 over 6 P-cores = 1.25 MB each; latency [P] |
 | L2 MSHRs | 48 | [E] | **not measured.** Carried over from the Skylake config |
 | L3 | **3 MB**, 12-way, 50 cyc | [E]/[P] | **Deliberately scaled down from the real 24 MB** so the working set can exceed it in simulation. Latency [P] |
 | L3 MSHRs | 64 | [E] | **not measured** |
 | memory | DDR5-6400 ×2 | [E] | real part is DDR5-5600; gem5 ships `DDR5_6400_4x8`. Closest available model, ~14 % optimistic on bandwidth |
+
+### Note on the L1D MSHR count — 16 vs the measured ~13.9
+
+The root `README.md` reports the VTune result properly, and it is more specific
+than a timing knee: **demand** misses in flight plateau at **13.8–13.9** from
+N = 20 to N = 128, with `L1D_PEND_MISS.FB_FULL` rising to 83–89 % of cycles and
+miss latency flat at ~85 ns. Little's law closes (85 ns ÷ 13.9 ≈ 6.1 ns/load,
+matching the measured plateau).
+
+So there are two defensible numbers:
+
+- **16** — the architectural LFB count for this core, which is what a `mshrs`
+  parameter in gem5 represents (the size of the structure).
+- **~14** — the occupancy demand loads actually achieve, the remaining ~2 entries
+  apparently going to non-demand traffic. The root README lists this gap as an
+  open question, and its "next test 2" (adding `L1D.REPLACEMENT` and L2
+  prefetch-request events) is designed to resolve it.
+
+We configure **16**, because gem5's `mshrs` is a structure size and the simulated
+prefetch traffic will contend for it the same way real non-demand traffic does.
+If the simulated demand occupancy does not land near 14, that discrepancy is
+itself a finding and should be reported, not tuned away.
 
 ### Deliberate deviations, and why
 

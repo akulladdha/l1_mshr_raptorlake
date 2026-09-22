@@ -17,16 +17,28 @@ DDR5-5600, 2.5 GHz base. Mobile part — power state materially affects results.
 
 ## Phase 0 — prior work in this repo
 
-`mshr_count/` already establishes the headline number this study builds on: an
-interleaved pointer-chase (`mlp_chase.c`) sweeping N independent chains shows
-latency per load flattening at **N ≈ 14–16**, i.e. **14–16 L1 fill buffers
-(MSHRs)** on this machine. `sweep_plugged.txt`: 101.9 ns/load at N=1 → 6.68 at
-N=16 → 6.00 at N=128.
+`mshr_count/` and the root `README.md` already establish the number this study
+builds on. An interleaved pointer-chase (`mlp_chase.c`) over a 512 MB pool, with
+2 MB large pages and VTune counters, shows:
+
+- **Demand misses in flight plateau at 13.8–13.9** (N = 20 … 128), *not* 16.
+- `L1D_PEND_MISS.FB_FULL` climbs from ≈0 to **83–89 % of cycles** as the plateau
+  forms — the hardware says outright that it is waiting on the fill buffer.
+- Miss latency is flat at ~85 ns and DRAM bandwidth only ~10 GB/s, so the limit
+  is at the L1, not downstream. Zero page walks, so not the TLB either.
+- Little's law closes: 85 ns ÷ 13.9 ≈ 6.1 ns/load = the measured plateau.
+
+Earlier drafts of this notebook said "14–16 MSHRs" from the timing knee alone.
+That was imprecise: **16** is the architectural LFB count, **~13.9** is what
+demand loads actually achieve, and the ~2-entry gap is an open question in the
+root README (its next-test 2 is designed to resolve it). See
+`gem5/CONFIG_SOURCES.md` for which number the simulator config uses and why.
 
 **Problem noted:** `sweep.txt` and `sweep_plugged.txt` disagree badly at N=1
-(148.2 vs 101.9 ns/load). The file names say why — battery vs AC. Any timing on
-this laptop must be done on AC with a fixed power plan, and should record
-achieved frequency. Not yet enforced; see Open Issues.
+(148.2 vs 101.9 ns/load) — battery vs AC. The root README quantifies it at ~30 %
+and also flags long N=1 runs outlasting turbo. Any timing on this laptop must be
+on AC in Best-performance mode, with achieved frequency recorded. Not yet
+enforced here; see Open Issues.
 
 ---
 

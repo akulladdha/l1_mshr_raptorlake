@@ -6,6 +6,15 @@
 
 Machine: Intel Core 7 240H (6P + 4E, 24 MB L3), Windows 11 Home, MSVC, VTune.
 
+> **This repo has two parts.** This file covers `mshr_count/` — measuring the
+> fill-buffer limit on real hardware. `camel_speedup/` builds on that result to
+> recreate Fig. 3.10 of Kwon's *Software Prefetching for Memory-level
+> Parallelism*: does software prefetch actually help once the fill buffer is the
+> binding constraint? See [`camel_speedup/README.md`](camel_speedup/README.md)
+> and its [lab notebook](camel_speedup/docs/LAB_NOTEBOOK.md). First result there
+> reproduces the premise directly — in gem5, with a 10-MSHR L1, prefetch buys
+> 0.1 % and MSHR-full stalls occupy 93 % of cycles; lifting the cap gives 2.1×.
+
 ---
 
 ## Method
