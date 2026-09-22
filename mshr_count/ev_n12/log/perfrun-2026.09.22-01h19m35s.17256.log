@@ -1,0 +1,122 @@
+38 [11912] INFO perfrun.launcher <> - Launcher main begin
+41 [11912] INFO perfrun.launcher <> - MessageCatalogInit finished
+41 [11912] INFO perfrun.launcher <> - Launcher instance created
+41 [11912] INFO perfrun.launcher <> - argc = 7; cmdline = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\amplxe-runss.exe --ui-output-format xml --ui-output-fd 888 --option-file C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\config\runsa.options 
+56 [11912] INFO perfrun.launcher <> - New signal handler callback was added
+80 [11912] INFO perfrun.perfcollector <> - SEP tool path: C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe
+90 [11912] INFO perfrun.launcher <> - create msngr2::ICliToolContext
+90 [11912] INFO perfrun.launcher <> - create file finder object
+90 [11912] INFO perfrun.launcher <> - create a result directory: pattern = C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12 pid = 4294967295
+92 [11912] INFO perfrun.launcher <> - create data directory = C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0
+92 [11912] INFO perfrun.launcher <> - Creating the master collection flag
+98 [11912] INFO perfrun.launcher <> - Done creating the master collection flag
+98 [19864] INFO perfrun.launcher <> - plugin [remoteplug] was disabled because it doesn't support the given collection type.
+98 [19864] INFO perfrun.sdk <> - Allocating TMU :C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0\systemcollector-17256-AkulComputer.sc
+98 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+99 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+99 [19864] INFO perfrun.launcher <> - plugin [gpu] was disabled because it doesn't support the given collection type.
+99 [19864] INFO perfrun.launcher <> - plugin [etw.kernel] was disabled because it doesn't support the given collection type.
+99 [19864] INFO perfrun.launcher <> - plugin [etw.dx] was disabled because it doesn't support the given collection type.
+99 [19864] INFO perfrun.launcher <> - plugin [etw.wsa] was disabled because it doesn't support the given collection type.
+100 [19864] INFO perfrun.mrte <> - system-wide mode is 0
+100 [19864] INFO perfrun.mrte <> - Getting  mrte profiling environment ...
+115 [19864] INFO perfrun.mrte <> - INTEL_MRTE_DATA_DIR=C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0
+115 [19864] INFO perfrun.mrte <> - INTEL_MRTE_HOST_NAME=AkulComputer
+115 [19864] INFO perfrun.mrte <> - JAVA_TOOL_OPTIONS=-agentlib:amplxe_samplingmrte_javaprof_1.0
+115 [19864] INFO perfrun.mrte <> - PATH=C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin32\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\18\Insiders\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\18\Insiders\Team Tools\DiagnosticsHub\Collector;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console;C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\\x64;C:\Program Files (x86)\Windows Kits\10\bin\\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\Tools\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Users\akull\AppData\Local\Microsoft\WindowsApps;C:\Users\akull\AppData\Local\Programs\Microsoft VS Code\bin;C:\iverilog\bin;C:\iverilog\gtkwave\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\Linux\bin\ConnectionManagerExe;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\vcpkg
+115 [19864] INFO perfrun.mrte <> - COR_ENABLE_PROFILING=1
+115 [19864] INFO perfrun.mrte <> - COR_PROFILER={AA5E4821-E3B1-479c-B7FF-5AD047D22CED}
+115 [19864] INFO perfrun.mrte <> - COMPLUS_ProfAPI_ProfilerCompatibilitySetting=EnableV2Profiler
+115 [19864] INFO perfrun.mrte <> - CORECLR_ENABLE_PROFILING=1
+115 [19864] INFO perfrun.mrte <> - CORECLR_PROFILER={AA5E4821-E3B1-479c-B7FF-5AD047D22CED}
+115 [19864] INFO perfrun.mrte <> - CORECLR_PROFILER_PATH=C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64/amplxe_samplingmrte_clrprof_1.0.dll
+115 [19864] INFO perfrun.mrte <> - INTEL_MRTE_PROFILER_MODE=mixed
+115 [19864] INFO perfrun.mrte <> - Data directory: C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0
+115 [19864] INFO perfrun.mrte <> - Mrte plugin is initialized
+115 [19864] INFO perfrun.launcher <> - plugin [emon] was disabled because it doesn't support the given collection type.
+115 [19864] INFO perfrun.launcher <> - plugin [cuscol] was disabled because it doesn't support the given collection type.
+115 [19864] INFO perfrun.launcher <> - plugin [stdsrc] was disabled because it doesn't support the given collection type.
+116 [19864] INFO perfrun.sdk <> - runCmd: "C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe" -dry-run -ec CPU_CLK_UNHALTED.THREAD,CPU_CLK_UNHALTED.REF_TSC,INST_RETIRED.ANY,L1D_PEND_MISS.PENDING,MEMORY_ACTIVITY.CYCLES_L1D_MISS,L1D_PEND_MISS.FB_FULL,MEM_LOAD_COMPLETED.L1_MISS_ANY,DTLB_LOAD_MISSES.WALK_COMPLETED_4K,DTLB_LOAD_MISSES.WALK_COMPLETED_2M_4M -experimental
+124 [19864] INFO perfrun.sdk <> - runCmd started PID 14044
+294 [19864] INFO perfrun.launcher <> - plugin [vtsspp] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [perf] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [aoclprofile] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.tpss <> - initialize tpss controller
+294 [19864] INFO perfrun.launcher <> - plugin [tpss] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [power] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [l0_metrics] was disabled because it doesn't support the given collection type.
+294 [19864] INFO perfrun.launcher <> - plugin [stall_reasons] was disabled because it doesn't support the given collection type.
+294 [11912] INFO perfrun.launcher <> - set environment variable: PATH = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin32\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\18\Insiders\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\18\Insiders\Team Tools\DiagnosticsHub\Collector;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console;C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\\x64;C:\Program Files (x86)\Windows Kits\10\bin\\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\Tools\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Users\akull\AppData\Local\Microsoft\WindowsApps;C:\Users\akull\AppData\Local\Programs\Microsoft VS Code\bin;C:\iverilog\bin;C:\iverilog\gtkwave\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\Linux\bin\ConnectionManagerExe;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\vcpkg
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_LIBITTNOTIFY32 = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin32\runtime\ittnotify_collector.dll
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_LIBITTNOTIFY64 = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\runtime\ittnotify_collector.dll
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_ITTNOTIFY_GROUPS = 
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_JIT_PROFILER32 = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin32\runtime\ittnotify_collector.dll
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_JIT_PROFILER64 = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\runtime\ittnotify_collector.dll
+295 [11912] INFO perfrun.launcher <> - set environment variable: CCL_ITT_LEVEL = 1
+295 [11912] INFO perfrun.launcher <> - set environment variable: ENABLE_JITPROFILING = 1
+295 [11912] INFO perfrun.launcher <> - set environment variable: CL_CONFIG_USE_VTUNE = True
+295 [11912] INFO perfrun.launcher <> - set environment variable: KMP_FORKJOIN_FRAMES = 0
+295 [11912] INFO perfrun.launcher <> - set environment variable: KMP_FORKJOIN_FRAMES_MODE = 0
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_MRTE_DATA_DIR = C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_MRTE_HOST_NAME = AkulComputer
+295 [11912] INFO perfrun.launcher <> - set environment variable: JAVA_TOOL_OPTIONS = -agentlib:amplxe_samplingmrte_javaprof_1.0
+295 [11912] INFO perfrun.launcher <> - set environment variable: PATH = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin32\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\runtime;C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\Tools\MSVC\14.51.36231\bin\HostX64\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\VCPackages;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files\Microsoft Visual Studio\18\Insiders\MSBuild\Current\bin\Roslyn;C:\Program Files\Microsoft Visual Studio\18\Insiders\Team Tools\DiagnosticsHub\Collector;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\Extensions\Microsoft\CodeCoverage.Console;C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\\x64;C:\Program Files (x86)\Windows Kits\10\bin\\x64;C:\Program Files\Microsoft Visual Studio\18\Insiders\\MSBuild\Current\Bin\amd64;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\Tools\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Users\akull\AppData\Local\Microsoft\WindowsApps;C:\Users\akull\AppData\Local\Programs\Microsoft VS Code\bin;C:\iverilog\bin;C:\iverilog\gtkwave\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\VC\Linux\bin\ConnectionManagerExe;C:\Program Files\Microsoft Visual Studio\18\Insiders\VC\vcpkg
+295 [11912] INFO perfrun.launcher <> - set environment variable: COR_ENABLE_PROFILING = 1
+295 [11912] INFO perfrun.launcher <> - set environment variable: COR_PROFILER = {AA5E4821-E3B1-479c-B7FF-5AD047D22CED}
+295 [11912] INFO perfrun.launcher <> - set environment variable: COMPLUS_ProfAPI_ProfilerCompatibilitySetting = EnableV2Profiler
+295 [11912] INFO perfrun.launcher <> - set environment variable: CORECLR_ENABLE_PROFILING = 1
+295 [11912] INFO perfrun.launcher <> - set environment variable: CORECLR_PROFILER = {AA5E4821-E3B1-479c-B7FF-5AD047D22CED}
+295 [11912] INFO perfrun.launcher <> - set environment variable: CORECLR_PROFILER_PATH = C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64/amplxe_samplingmrte_clrprof_1.0.dll
+295 [11912] INFO perfrun.launcher <> - set environment variable: INTEL_MRTE_PROFILER_MODE = mixed
+296 [11912] INFO perfrun.launcher <> - RpcServer: run RPC server to handle requests
+314 [11912] INFO perfrun.sdk <> - IProcessUtil: the given executable 'mlp_chase_itt.exe' is valid.
+314 [11912] INFO perfrun.launcher <> - Launcher: command line to start before modification = mlp_chase_itt.exe 12
+314 [11912] INFO perfrun.launcher <> - Launcher: command line to start after modification = mlp_chase_itt.exe 12
+314 [11912] INFO perfrun.launcher <> - ProcessCreator object was created
+329 [11912] INFO perfrun.launcher <> - Launcher: the process was started in suspend mode
+329 [19864] INFO perfrun.itt <> - pause itt controller
+329 [19864] WARN perfrun.launcher <> - Messenger::say: Pause command is not supported for managed code profiling. Runtime overhead is still possible. Data size limit may be exceeded.
+329 [19864] INFO perfrun.sep <> - collection is not started
+331 [19864] INFO perfrun.itt <> - start itt controller for pid #17796
+332 [19864] INFO perfrun.sdk <> - runCmd: "C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe" -start -experimental -uem timer=10 -em factor=5 -sp -p-state trigger=CPU_CLK_UNHALTED.REF_TSC -out C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0\sep4d98.20260922T011936.013669 -ec INST_RETIRED.ANY,CPU_CLK_UNHALTED.THREAD,CPU_CLK_UNHALTED.REF_TSC,L1D_PEND_MISS.PENDING,MEMORY_ACTIVITY.CYCLES_L1D_MISS,L1D_PEND_MISS.FB_FULL,MEM_LOAD_COMPLETED.L1_MISS_ANY,DTLB_LOAD_MISSES.WALK_COMPLETED_4K,DTLB_LOAD_MISSES.WALK_COMPLETED_2M_4M, -d 0 -uem factor=10
+343 [19864] INFO perfrun.sdk <> - runCmd started PID 23328
+859 [11912] INFO perfrun.launcher <> - Launcher: all plugins were started
+859 [11912] INFO perfrun.launcher <> - DirectoryMonitor object was created
+859 [11912] INFO perfrun.launcher <> - DirectoryMonitor: a callback was added
+859 [11912] INFO perfrun.launcher <> - DirectoryMonitor was started with pingTime = 1000
+859 [11912] INFO perfrun.launcher <> - DeadlineTimer is going to be constructed
+861 [11912] INFO perfrun.launcher <> - DeadlineTimer: a callback was added
+874 [11912] INFO perfrun.launcher <> - Launcher: resume the profiled application and  wait its termination or stop command
+1585 [19864] INFO perfrun.itt <> - resume itt controller
+1586 [19864] INFO perfrun.sdk <> - runCmd: "C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe" -resume
+1593 [19864] INFO perfrun.sdk <> - runCmd started PID 15608
+1742 [19864] INFO perfrun.sepdk <> - 
+3688 [19864] INFO perfrun.itt <> - pause itt controller
+3688 [19864] INFO perfrun.sdk <> - runCmd: "C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe" -pause
+3694 [19864] INFO perfrun.sdk <> - runCmd started PID 13212
+3850 [19864] INFO perfrun.sepdk <> - 
+3855 [11912] INFO perfrun.launcher <> - Launcher: the profiled application was terminated  with exit code = 0
+3870 [19864] INFO perfrun.itt <> - detach itt controller
+3870 [19864] INFO perfrun.itt <> - detach itt controller done
+3870 [19864] INFO perfrun.sdk <> - runCmd: "C:\Program Files (x86)\Intel\oneAPI\vtune\2026.3\bin64\sep.exe" -stop
+3881 [19864] INFO perfrun.sdk <> - runCmd started PID 24272
+10065 [19864] INFO perfrun.sepdk <> - Sampling successfully stopped.
+
+10065 [19864] INFO perfrun.sepdk <> - Waiting for main SEP process (23328) to finish...
+10066 [19864] INFO perfrun.sepdk <> - Main SEP process finished
+10066 [19864] INFO perfrun.sdk <> - De-allocating TMU: C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0\systemcollector-17256-AkulComputer.sc
+10080 [19864] INFO perfrun.system <> - closed the system trace file: C:\Users\akull\Downloads\l1_mshr_raptorlake\ev_n12\data.0\systemcollector-17256-AkulComputer.sc
+10080 [11912] INFO perfrun.launcher <> - Launcher: all plugins were stopped.
+10080 [11912] INFO perfrun.launcher <> - DeadlineTimer is going to be destroyed
+10080 [11912] INFO perfrun.launcher <> - DeadlineTimer was destroyed
+10080 [11912] INFO perfrun.launcher <> - DirectoryMonitor object was destroyed
+10080 [11912] WARN perfrun.launcher <> - Stop command is ignored because it is received when collection is already stopped, at file: vcs\perfrun1\launcher\src\command_handler.cpp:226
+10082 [11912] INFO perfrun.launcher <> - Application exit code: 0
+10082 [11912] INFO perfrun.launcher <> - Exit code: 0

@@ -1,0 +1,6 @@
+N=1  large_pages=yes  loads=200000000  105.76 ns/load  check=18a7c3fc000
+N=8  large_pages=yes  loads=200000000  12.42 ns/load  check=9e2f280
+N=1  large_pages=yes  loads=200000000  126.41 ns/load  check=217a53fc000
+N=16  large_pages=yes  loads=200000000  6.77 ns/load  check=3f50a650
+N=1  large_pages=yes  loads=200000000  131.12 ns/load  check=1e051ffc000
+N=1  large_pages=yes  loads=200000000  125.69 ns/load  check=1f6cc3fc000

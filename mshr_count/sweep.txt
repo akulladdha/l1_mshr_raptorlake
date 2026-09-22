@@ -1,0 +1,16 @@
+N=1  large_pages=yes  loads=200000000  148.20 ns/load  check=1f46fdfc000
+N=2  large_pages=yes  loads=200000000  68.81 ns/load  check=3a469840
+N=4  large_pages=yes  loads=200000000  33.46 ns/load  check=164100d0
+N=6  large_pages=yes  loads=199999998  22.09 ns/load  check=95c7bb0
+N=8  large_pages=yes  loads=200000000  16.51 ns/load  check=f22f280
+N=10  large_pages=yes  loads=200000000  13.23 ns/load  check=2cfe3a0
+N=11  large_pages=yes  loads=199999998  12.12 ns/load  check=18d4ec200e0
+N=12  large_pages=yes  loads=199999992  11.26 ns/load  check=fe9c97d0
+N=13  large_pages=yes  loads=199999995  10.55 ns/load  check=1c9164de100
+N=14  large_pages=yes  loads=199999996  10.19 ns/load  check=22ea28b0
+N=15  large_pages=yes  loads=199999995  9.74 ns/load  check=2b90a30cf20
+N=16  large_pages=yes  loads=200000000  9.42 ns/load  check=1750a650
+N=18  large_pages=yes  loads=199999998  9.13 ns/load  check=31d28e10
+N=20  large_pages=yes  loads=200000000  8.95 ns/load  check=312a7bb0
+N=24  large_pages=yes  loads=199999992  8.85 ns/load  check=1925ab0
+N=32  large_pages=yes  loads=200000000  8.79 ns/load  check=de31510
