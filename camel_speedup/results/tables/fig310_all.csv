@@ -1,0 +1,4 @@
+hash_n,mem_intensity,base_cyc_per_access,base_mlp_l1,t0_cyc_per_access,t0_best_pfdist,t0_mlp_l1,t0_speedup_pct,t0_ideal_cyc_per_access,t0_ideal_best_pfdist,t0_ideal_mlp_l1,t0_ideal_speedup_pct,mshr_headroom_pct
+0,0.19172,42.344,9.92,42.288,32.0,9.94,100.1,16.598,256.0,113.1,255.1,155.0
+3,0.02084,153.805,2.36,,,,,45.218,32.0,9.48,340.1,
+5,0.01331,228.263,1.55,,,,,78.293,32.0,5.04,291.5,
