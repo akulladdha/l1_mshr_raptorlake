@@ -3,6 +3,7 @@ hash_n,l1d_mshrs,pfdist,early_retire_pf,tag,run,cyc_per_access,mlp_l1,demand_mis
 0.0,10.0,32.0,False,gate,t0_mshr10_nopatch,42.288,9.94,0.0359,5.8
 0.0,10.0,32.0,True,gate,t0_mshr10_patch,42.313,9.94,0.0358,5.8
 0.0,10.0,32.0,False,skylake_fig310,h0_t0_mshr10_d32,42.289,9.94,0.0359,5.8
+0.0,10.0,64.0,False,control,h0_L23only,42.291,9.94,0.0359,5.8
 0.0,10.0,64.0,True,dist,d64_m10,42.291,9.94,0.0358,5.8
 0.0,10.0,64.0,False,skylake_fig310,h0_t0_mshr10_d64,42.291,9.94,0.0359,5.8
 0.0,10.0,128.0,True,dist,d128_m10,42.382,9.93,0.0515,5.79
@@ -12,6 +13,7 @@ hash_n,l1d_mshrs,pfdist,early_retire_pf,tag,run,cyc_per_access,mlp_l1,demand_mis
 0.0,512.0,32.0,False,gate,t0_mshr512_nopatch,20.022,30.53,0.161,12.26
 0.0,512.0,32.0,True,gate,t0_mshr512_patch,19.998,30.53,0.1609,12.27
 0.0,512.0,32.0,False,skylake_fig310,h0_t0_mshr512_d32,20.013,30.54,0.1609,12.26
+0.0,512.0,64.0,False,control,h0_L1only,18.251,45.15,0.089,13.45
 0.0,512.0,64.0,True,dist,d64_m512,18.347,42.71,0.0819,13.37
 0.0,512.0,64.0,False,skylake_fig310,h0_t0_mshr512_d64,18.34,42.77,0.082,13.38
 0.0,512.0,128.0,True,dist,d128_m512,17.107,68.82,0.0577,14.34
@@ -20,11 +22,13 @@ hash_n,l1d_mshrs,pfdist,early_retire_pf,tag,run,cyc_per_access,mlp_l1,demand_mis
 0.0,512.0,256.0,False,skylake_fig310,h0_t0_mshr512_d256,16.6,112.99,0.152,14.78
 1.0,10.0,16.0,False,skylake_fig310,h1_t0_mshr10_d16,42.503,9.89,0.0335,5.77
 1.0,10.0,32.0,False,skylake_fig310,h1_t0_mshr10_d32,42.486,9.89,0.0271,5.78
+1.0,10.0,64.0,False,control,h1_L23only,42.486,9.89,0.0271,5.78
 1.0,10.0,64.0,False,skylake_fig310,h1_t0_mshr10_d64,42.486,9.89,0.0271,5.78
 1.0,10.0,128.0,False,skylake_fig310,h1_t0_mshr10_d128,42.57,9.89,0.0436,5.77
 1.0,10.0,256.0,False,skylake_fig310,h1_t0_mshr10_d256,43.51,9.88,0.2389,5.64
 1.0,512.0,16.0,False,skylake_fig310,h1_t0_mshr512_d16,29.975,15.67,0.1587,8.19
 1.0,512.0,32.0,False,skylake_fig310,h1_t0_mshr512_d32,21.725,24.03,0.0787,11.3
+1.0,512.0,64.0,False,control,h1_L1only,18.94,34.56,0.0237,12.96
 1.0,512.0,64.0,False,skylake_fig310,h1_t0_mshr512_d64,18.937,34.22,0.0235,12.96
 1.0,512.0,128.0,False,skylake_fig310,h1_t0_mshr512_d128,17.502,54.18,0.0162,14.02
 1.0,512.0,256.0,False,skylake_fig310,h1_t0_mshr512_d256,16.862,81.8,0.1001,14.55

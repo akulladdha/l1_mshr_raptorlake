@@ -206,6 +206,68 @@ def main():
            "cyc_per_access", "mlp_l1", "demand_miss_rate", "dram_gb_per_s"],
           dist)
 
+    # ------------------------------------------------- MSHR attribution
+    # Which cache level's MSHRs actually bind? The fig310 sweep lifts L1, L2
+    # and L3 together, which cannot separate them. The `control` runs lift one
+    # side at a time. Matched at a single prefetch distance so the only thing
+    # differing between bars is the MSHR configuration.
+    ATTR_DIST = 64
+    attr = []
+    allrows = load(args.runs)
+    if args.machine:
+        allrows = [r for r in allrows if r.get("machine") == args.machine]
+
+    def pick(swpf, l1, l2, dist=ATTR_DIST):
+        for r in allrows:
+            if (bool(r["swpf"]) == bool(swpf)
+                    and r["machine_l1d_mshrs"] == l1
+                    and r["l2_mshrs"] == l2
+                    and (not swpf or r["pfdist"] == dist)):
+                return r
+        return None
+
+    for hn in sorted(by_hn):
+        hrows = [r for r in allrows
+                 if r["hash_n"] is not None and int(r["hash_n"]) == hn]
+
+        def pick_h(swpf, l1, l2, dist=ATTR_DIST):
+            for r in hrows:
+                if (bool(r["swpf"]) == bool(swpf)
+                        and r["machine_l1d_mshrs"] == l1
+                        and r["l2_mshrs"] == l2
+                        and (not swpf or r["pfdist"] == dist)):
+                    return r
+            return None
+
+        stock_l2 = 48.0
+        variants = [
+            ("baseline_no_swpf", pick_h(0, args.stock_mshrs, stock_l2)),
+            ("t0_stock", pick_h(1, args.stock_mshrs, stock_l2)),
+            ("t0_l2l3_only", pick_h(1, args.stock_mshrs, 512.0)),
+            ("t0_l1_only", pick_h(1, args.ideal_mshrs, stock_l2)),
+            ("t0_all_levels", pick_h(1, args.ideal_mshrs, 512.0)),
+        ]
+        base = variants[0][1]
+        if not base:
+            continue
+        row = {"hash_n": hn, "pfdist": ATTR_DIST}
+        for name, r in variants:
+            if not r:
+                continue
+            row[f"{name}_cyc_per_access"] = round(r["cyc_per_access"], 3)
+            row[f"{name}_mlp_l1"] = round(r["mlp_l1"], 2)
+            row[f"{name}_speedup"] = round(
+                base["cyc_per_access"] / r["cyc_per_access"], 3)
+        attr.append(row)
+
+    if attr:
+        acols = ["hash_n", "pfdist"]
+        for n in ("baseline_no_swpf", "t0_stock", "t0_l2l3_only",
+                  "t0_l1_only", "t0_all_levels"):
+            acols += [f"{n}_cyc_per_access", f"{n}_mlp_l1", f"{n}_speedup"]
+        write(os.path.join(args.outdir, f"attribution_{tag}.csv"), acols,
+              [{c: r.get(c) for c in acols} for r in attr])
+
     # ------------------------------------------------------- roofline
     roof = []
     for r in sorted(rows, key=lambda x: x["mem_intensity"]):

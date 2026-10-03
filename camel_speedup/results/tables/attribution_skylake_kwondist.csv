@@ -1,0 +1,7 @@
+hash_n,pfdist,baseline_no_swpf_cyc_per_access,baseline_no_swpf_mlp_l1,baseline_no_swpf_speedup,t0_stock_cyc_per_access,t0_stock_mlp_l1,t0_stock_speedup,t0_l2l3_only_cyc_per_access,t0_l2l3_only_mlp_l1,t0_l2l3_only_speedup,t0_l1_only_cyc_per_access,t0_l1_only_mlp_l1,t0_l1_only_speedup,t0_all_levels_cyc_per_access,t0_all_levels_mlp_l1,t0_all_levels_speedup
+0,64,42.344,9.92,1.0,42.291,9.94,1.001,42.291,9.94,1.001,18.251,45.15,2.32,18.347,42.71,2.308
+1,64,74.768,5.17,1.0,42.486,9.89,1.76,42.486,9.89,1.76,18.94,34.56,3.948,18.937,34.22,3.948
+2,64,107.317,3.47,1.0,42.627,9.84,2.518,,,,,,,22.202,24.26,4.834
+3,64,153.805,2.36,1.0,48.723,8.33,3.157,,,,,,,44.401,9.73,3.464
+4,64,211.807,1.67,1.0,63.535,6.17,3.334,,,,,,,61.319,6.66,3.454
+5,64,228.263,1.55,1.0,80.582,4.78,2.833,,,,,,,78.304,5.04,2.915
